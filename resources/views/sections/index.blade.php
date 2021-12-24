@@ -46,7 +46,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         @include('errors')
-                        <table class="table text-md-nowrap" id="example1">
+                        <table class="table text-md-nowrap" id="example1" data-page-length='50'>
                             <thead>
                                 <tr>
                                     <th class="wd-15p border-bottom-0">#</th>
@@ -62,13 +62,9 @@
                                         <td>{{ $section->section_name }}</td>
                                         <td>{{ $section->description }}</td>
                                         <td>
-                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-id="{{ $section->id }}"
-                                                data-section_name="{{ $section->section_name }}" data-description="{{ $section->description }}" data-toggle="modal"
-                                                href="#exampleModal2" title="تعديل"><i class="las la-pen"></i></a>
+                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-section="{{ $section }}" data-toggle="modal" href="#exampleModal2" title="تعديل"><i class="las la-pen"></i></a>
                                             
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" data-id="{{ $section->id }}"
-                                                data-section_name="{{ $section->section_name }}" data-toggle="modal" href="#modaldemo9" title="حذف"><i
-                                                    class="las la-trash"></i></a>
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" data-section="{{ $section }}" data-toggle="modal" href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
                                         </td>
                                     </tr>
                                 @empty
@@ -127,11 +123,11 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <input type="hidden" name="id" id="id" value="">
-                                <label for="recipient-name" class="col-form-label">اسم القسم:</label>
+                                <label for="section_name" class="col-form-label">اسم القسم:</label>
                                 <input class="form-control" name="section_name" id="section_name" type="text">
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label">الوصف:</label>
+                                <label for="description" class="col-form-label">الوصف:</label>
                                 <textarea class="form-control" id="description" name="description"></textarea>
                             </div>
                         </div>
@@ -207,31 +203,27 @@
     <!-- Internal Select2 js-->
     <script src="{{URL::asset('assets/plugins/select2/js/select2.min.js')}}"></script>
 
-    {{-- Start Edit Modal --}}
     <script>
+        // Start Edit Modal
         $('#exampleModal2').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget)
-                var id = button.data('id')
-                var section_name = button.data('section_name')
-                var description = button.data('description')
-                var modal = $(this)
-                modal.find('.modal-body #id').val(id);
-                modal.find('.modal-body #section_name').val(section_name);
-                modal.find('.modal-body #description').val(description);
-            })
-    </script>
-    {{-- End Edit Modal --}}
+            var button = $(event.relatedTarget)
+            var section = button.data('section')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(section.id);
+            modal.find('.modal-body #section_name').val(section.section_name);
+            modal.find('.modal-body #description').val(section.description);
+        })
+        // End Edit Modal
 
-    {{-- Start Delete Modal --}}
-    <script>
+        // Start Delete Modal
         $('#modaldemo9').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget)
-                var id = button.data('id')
-                var section_name = button.data('section_name')
-                var modal = $(this)
-                modal.find('.modal-body #id').val(id);
-                modal.find('.modal-body #section_name').val(section_name);
-            })
+            var button = $(event.relatedTarget)
+            var section = button.data('section')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(section.id);
+            modal.find('.modal-body #section_name').val(section.section_name);
+        })
+        // End Delete Modal
     </script>
-    {{-- End Delete Modal --}}
+
 @endsection

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SectionRequest;
+use App\Http\Requests\ProductRequest;
+use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class SectionController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,9 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $sections = Section::all(); 
-        return view('sections.index',compact('sections'));
+        $sections = Section::all();
+        $products = Product::all();
+        return view('products.index',compact('sections','products'));
     }
 
     /**
@@ -36,24 +37,19 @@ class SectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SectionRequest $request)
+    public function store(ProductRequest $request)
     {
-        Section::create([
-            'section_name' => $request->section_name,
-            'description' => $request->description,
-            'created_by' => Auth::user()->name
-        ]);
-
-        return redirect()->route('sections.index')->with('add','تم اضافة القسم بنجاح');
+        Product::create($request->validated());
+        return redirect()->route('products.index')->with('add','تم اضافة المنتج بنجاح');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function show(Product $product)
     {
         //
     }
@@ -61,10 +57,10 @@ class SectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Section $section)
+    public function edit(Product $product)
     {
         //
     }
@@ -75,12 +71,11 @@ class SectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(SectionRequest $request)
+    public function update(ProductRequest $request)
     {
-        $section = Section::findOrFail($request->id);
-        $section->update($request->validated());
-
-        return redirect()->route('sections.index')->with('edit','تم تعديل القسم بنجاج');
+        $product = Product::findOrFail($request->id);
+        $product->update($request->validated());
+        return redirect()->route('products.index')->with('edit','تم تعديل المنتج بنجاج');
     }
 
     /**
@@ -91,7 +86,7 @@ class SectionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Section::findOrFail($request->id)->delete();
-        return redirect()->route('sections.index')->with('delete','تم حذف القسم بنجاج');
+        Product::findOrFail($request->id)->delete();
+        return redirect()->route('products.index')->with('delete','تم حذف المنتج بنجاج');
     }
 }
