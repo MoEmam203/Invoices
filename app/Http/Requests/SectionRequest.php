@@ -27,7 +27,7 @@ class SectionRequest extends FormRequest
             case 'POST':
                 return [
                     'section_name' => 'required|string|min:3|max:255|unique:sections,section_name',
-                    'description' => "min:3|max:500",
+                    'description' => "nullable|min:3|max:500",
                 ];
             case 'PUT':
             case 'PATCH':

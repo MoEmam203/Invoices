@@ -35,6 +35,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'attachment' => [
+            'driver' => 'local',
+            'root' => public_path().'/Attachments/Invoices',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

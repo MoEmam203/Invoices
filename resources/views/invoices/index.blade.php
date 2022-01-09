@@ -30,33 +30,76 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">STRIPED ROWS</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                        <a href="{{ route('invoices.create') }}" class="btn btn-sm btn-primary">اضافة فاتورة</a>
                     </div>
-                    <p class="tx-12 tx-gray-500 mb-2">Example of Valex Striped Rows.. <a href="">Learn more</a></p>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table text-md-nowrap" id="example2">
+                        @include('errors')
+                        <table class="table text-md-nowrap" id="example1" data-page-length='50'>
                             <thead>
                                 <tr>
-                                    <th class="wd-15p border-bottom-0">First name</th>
-                                    <th class="wd-15p border-bottom-0">Last name</th>
-                                    <th class="wd-20p border-bottom-0">Position</th>
-                                    <th class="wd-15p border-bottom-0">Start date</th>
-                                    <th class="wd-10p border-bottom-0">Salary</th>
-                                    <th class="wd-25p border-bottom-0">E-mail</th>
+                                    <th class="wd-15p border-bottom-0">#</th>
+                                    <th class="wd-15p border-bottom-0">رقم الفاتورة</th>
+                                    <th class="wd-20p border-bottom-0">تاريخ الفاتورة</th>
+                                    <th class="wd-20p border-bottom-0">تاريخ الاستحقاق</th>
+                                    <th class="wd-15p border-bottom-0">القسم</th>
+                                    <th class="wd-10p border-bottom-0">المنتج</th>
+                                    <th class="wd-25p border-bottom-0">مبلغ التحصيل</th>
+                                    <th class="wd-25p border-bottom-0">مبلغ العمولة</th>
+                                    <th class="wd-25p border-bottom-0">الخصم</th>
+                                    <th class="wd-25p border-bottom-0">نسبة الضريبة</th>
+                                    <th class="wd-25p border-bottom-0">قيمة الضريبة</th>
+                                    <th class="wd-25p border-bottom-0">الاجمالي</th>
+                                    <th class="wd-25p border-bottom-0">الحالة</th>
+                                    <th class="wd-25p border-bottom-0">ملاحظات</th>
+                                    <th class="wd-25p border-bottom-0">العمليات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Bella</td>
-                                    <td>Chloe</td>
-                                    <td>System Developer</td>
-                                    <td>2018/03/12</td>
-                                    <td>$654,765</td>
-                                    <td>b.Chloe@datatables.net</td>
-                                </tr>
+                                @forelse ($invoices as $key => $invoice)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $invoice->invoice_number }}</td>
+                                        <td>{{ $invoice->invoice_date }}</td>
+                                        <td>{{ $invoice->due_date }}</td>
+                                        <td>
+                                            <a href="{{ route('invoiceDetails.show',$invoice) }}">
+                                                {{ $invoice->section->section_name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $invoice->product->product_name }}</td>
+                                        <td>{{ $invoice->amount_collection }}</td>
+                                        <td>{{ $invoice->amount_commission }}</td>
+                                        <td>{{ $invoice->discount }}</td>
+                                        <td>{{ $invoice->rate_vat }}%</td>
+                                        <td>{{ $invoice->value_vat }}</td>
+                                        <td>{{ $invoice->total }}</td>
+                                        <td>
+                                            @if ($invoice->value_status == 1)
+                                                <span class="text-success">{{ $invoice->status }}</span>
+                                            @elseif ($invoice->value_status == 2)
+                                                <span class="text-danger">{{ $invoice->status }}</span>
+                                            @else
+                                                <span class="text-warning">{{ $invoice->status }}</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $invoice->note }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
+                                                    id="dropdownMenuButton" type="button">العمليات<i class="fas fa-caret-down ml-1"></i></button>
+                                                <div class="dropdown-menu tx-13">
+                                                    <a class="dropdown-item" href="{{ route('invoices.edit',$invoice) }}">تعديل الفاتورة</a>
+                                                    {{-- <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a> --}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <p>لايوجد فواتير</p>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
