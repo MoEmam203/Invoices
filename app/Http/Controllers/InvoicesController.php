@@ -57,14 +57,14 @@ class InvoicesController extends Controller
             'rate_vat' => $request->rate_vat,
             'total' => $request->total,
             'note' => $request->note,
-            'value_status' => 2,
+            'value_status' => 1,
             'status' => 'غير مدفوعة',
             'created_by' => Auth::user()->name
         ]);
 
         Invoice_details::create([
             'invoice_id' => $invoice->id,
-            'value_status' => 2,
+            'value_status' => 1,
             'status' => 'غير مدفوعة',
         ]);
 
@@ -160,5 +160,40 @@ class InvoicesController extends Controller
                 'attachments' => $invoice->attachments
             ]
         );
+    }
+
+    public function showInvoiceStatus(Invoice $invoice){
+        return view('invoices.showStatus',["invoice" => $invoice]);
+    }
+
+    public function updateInvoiceStatus(Invoice $invoice,Request $request){
+        // مدفوعة جزئيا
+        if($request->status == 3){
+            $invoice->update([
+                'value_status' => 3,
+                'status' => "مدفوعة جزئيا"
+            ]);
+
+            Invoice_details::create([
+                "invoice_id" => $invoice->id,
+                'value_status' => 3,
+                'status' => "مدفوعة جزئيا",
+                "Payment_Date" => $request->payment_date
+            ]);
+        }elseif($request->status == 1){
+            $invoice->update([
+                'value_status' => 1,
+                'status' => "مدفوعة"
+            ]);
+
+            Invoice_details::create([
+                "invoice_id" => $invoice->id,
+                'value_status' => 1,
+                'status' => "مدفوعة",
+                "Payment_Date" => $request->payment_date
+            ]);
+        }
+
+        return redirect("invoices")->withEdit("تم تعديل الحالة بنجاج");
     }
 }

@@ -44,4 +44,7 @@ Route::get('/downloadInvoicesAttachment/{invoice}/{file_name}',[InvoiceAttachmen
 Route::delete('/deleteInvoicesAttachment',[InvoiceAttachmentController::class,'destroy'])->name('InvoiceAttachment.delete');
 Route::post('/invoiceAttachment',[InvoiceAttachmentController::class,'store'])->name('invoiceAttachment.store');
 
+Route::get('/showInvoiceStatus/{invoice}',[InvoicesController::class,'showInvoiceStatus'])->name('show.invoice.status');
+Route::post('/updateInvoiceStatus/{invoice}',[InvoicesController::class,'updateInvoiceStatus'])->name("update.invoice.status");
+
 Route::get('/{page}', [AdminController::class,'index']);
