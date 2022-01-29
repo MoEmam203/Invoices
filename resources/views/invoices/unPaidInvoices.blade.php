@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','قائمة الفواتير')
+@section('title','قائمة الفواتير الغير المدفوعة')
 @section('css')
     <!-- Internal Data table css -->
     <link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
@@ -15,7 +15,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    قائمة الفواتير</span>
+                    قائمة الفواتير الغير المدفوعة</span>
             </div>
         </div>
 
@@ -28,11 +28,6 @@
         <!--div-->
         <div class="col-xl-12">
             <div class="card">
-                <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route('invoices.create') }}" class="btn btn-sm btn-primary">اضافة فاتورة</a>
-                    </div>
-                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         @include('errors')
@@ -101,10 +96,6 @@
                                                     <a class="dropdown-item" href="{{ route('show.invoice.status',$invoice) }}">
                                                         تغيير حالة الفاتورة
                                                     </a>
-                                                    <a class="dropdown-item text-warning" data-target="#modaldemo2" data-invoice="{{ $invoice }}" data-toggle="modal" href="#modaldemo2">
-                                                        <i class="fas fa-archive"></i>
-                                                        نقل الي الارشيف
-                                                    </a>
                                                     {{-- <a class="dropdown-item" href="#">Another action</a>
                                                     <a class="dropdown-item" href="#">Something else here</a> --}}
                                                 </div>
@@ -155,36 +146,6 @@
     </div>
     <!-- End Delete invoice modal -->
 
-    <!-- Archive invoice modal -->
-    <div class="modal" id="modaldemo2">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title">نقل الفاتورة الي الارشيف</h6>
-                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                        <span aria-hidden="true">
-                            &times;
-                        </span>
-                    </button>
-                </div>
-                <form action="{{ route('invoices.archive','test') }}" method="post">
-                    @csrf
-                    <div class="modal-body">
-                        <p>
-                            هل انت متاكد من نقل الفاتورة الي الارشيف
-                        </p>
-                        <input type="hidden" name="id" id="id" value="">
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn ripple btn-warning" type="submit">نقل</button>
-                        <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- End Archive invoice modal -->
-
 
     </div>
     <!-- Container closed -->
@@ -211,6 +172,7 @@
     <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
     <!--Internal  Datatable js -->
     <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+
     <script>
         // Start Delete Modal
         $('#modaldemo1').on('show.bs.modal', function(event) {
@@ -220,14 +182,5 @@
             modal.find('.modal-body #id').val(invoice.id);
         })
         // End Delete Modal
-
-        // Start Archive Modal
-        $('#modaldemo2').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget)
-            var invoice = button.data('invoice')
-            var modal = $(this)
-            modal.find('.modal-body #id').val(invoice.id);
-        })
-        // End Archive Modal
     </script>
 @endsection

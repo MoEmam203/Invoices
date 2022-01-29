@@ -57,14 +57,14 @@ class InvoicesController extends Controller
             'rate_vat' => $request->rate_vat,
             'total' => $request->total,
             'note' => $request->note,
-            'value_status' => 1,
+            'value_status' => 2,
             'status' => 'غير مدفوعة',
             'created_by' => Auth::user()->name
         ]);
 
         Invoice_details::create([
             'invoice_id' => $invoice->id,
-            'value_status' => 1,
+            'value_status' => 2,
             'status' => 'غير مدفوعة',
         ]);
 
@@ -136,15 +136,11 @@ class InvoicesController extends Controller
 
         Storage::disk("attachment")->deleteDirectory($invoice->invoice_number);
 
-        // Soft DElete
-        // $invoice->delete();
-
         // Delete From DB also
         $invoice->forceDelete();
 
         return redirect()->back()->withDelete("تم حذف الفاتورة بنجاح");
     }
-
 
     public function getProductsBySectionID($id){
         $products = Product::where('section_id',$id)->pluck('product_name','id');
@@ -196,4 +192,34 @@ class InvoicesController extends Controller
 
         return redirect("invoices")->withEdit("تم تعديل الحالة بنجاج");
     }
+
+    public function paidInvoices(){
+        $invoices = Invoice::where('value_status',1)->get();
+        return view("invoices.paidInvoices",['invoices'=>$invoices]);
+    }
+
+    public function unPaidInvoices(){
+        $invoices = Invoice::where('value_status',2)->get();
+        return view("invoices.unPaidInvoices",['invoices'=>$invoices]);
+    }
+
+    public function partialPaidInvoices(){
+        $invoices = Invoice::where('value_status',3)->get();
+        return view("invoices.partialPaidInvoices",['invoices'=>$invoices]);
+    }
+
+    public function archive(Request $request){
+        $invoice = Invoice::find($request->id);
+
+        $invoice->delete();
+
+        return redirect()->route("invoicesArchive.index")->withAdd("تم نقل الفاتورة الي الارشيف");
+    }
+
+    public function unArchive(Request $request){
+        Invoice::withTrashed()->find($request->id)->restore();
+
+        return redirect()->route("invoices.index")->withAdd("تم اعادة الفاتورة من الارشيف");
+    }
+
 }

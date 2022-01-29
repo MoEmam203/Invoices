@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvoiceAttachmentController;
+use App\Http\Controllers\InvoicesArchiveController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionController;
@@ -46,5 +47,15 @@ Route::post('/invoiceAttachment',[InvoiceAttachmentController::class,'store'])->
 
 Route::get('/showInvoiceStatus/{invoice}',[InvoicesController::class,'showInvoiceStatus'])->name('show.invoice.status');
 Route::post('/updateInvoiceStatus/{invoice}',[InvoicesController::class,'updateInvoiceStatus'])->name("update.invoice.status");
+
+Route::get('/paidInvoices',[InvoicesController::class,'paidInvoices'])->name('paidInvoices');
+Route::get('/unPaidInvoices',[InvoicesController::class,'unPaidInvoices'])->name('unPaidInvoices');
+Route::get('/partialPaidInvoices',[InvoicesController::class,'partialPaidInvoices'])->name('partialPaidInvoices');
+
+Route::resource('invoicesArchive', InvoicesArchiveController::class);
+
+Route::post('/archiveInvoice',[InvoicesController::class,'archive'])->name('invoices.archive');
+
+Route::post('/unArchiveInvoice',[InvoicesController::class,'unArchive'])->name('invoices.unArchive');
 
 Route::get('/{page}', [AdminController::class,'index']);
