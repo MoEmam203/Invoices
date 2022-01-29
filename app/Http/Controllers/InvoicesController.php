@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoicesController extends Controller
 {
@@ -129,9 +130,19 @@ class InvoicesController extends Controller
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Request $request)
     {
-        //
+        $invoice = Invoice::find($request->id);
+
+        Storage::disk("attachment")->deleteDirectory($invoice->invoice_number);
+
+        // Soft DElete
+        // $invoice->delete();
+
+        // Delete From DB also
+        $invoice->forceDelete();
+
+        return redirect()->back()->withDelete("تم حذف الفاتورة بنجاح");
     }
 
 
