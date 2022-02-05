@@ -29,8 +29,12 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between">
+                    <div class="">
                         <a href="{{ route('invoices.create') }}" class="btn btn-sm btn-primary">اضافة فاتورة</a>
+                        <a href="{{ route('invoices.export') }}" class="btn btn-sm btn-success">
+                            <i class="fas fa-file-excel"></i>
+                            تصدير الفواتير
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">

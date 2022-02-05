@@ -60,4 +60,6 @@ Route::post('/unArchiveInvoice',[InvoicesController::class,'unArchive'])->name('
 
 Route::get('/printInvoice/{invoice}',[InvoicesController::class,'printInvoice'])->name('invoice.print');
 
+Route::get('/exportInvoices',[InvoicesController::class,'export'])->name('invoices.export');
+
 Route::get('/{page}', [AdminController::class,'index']);

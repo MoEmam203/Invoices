@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\InvoiceExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoicesController extends Controller
 {
@@ -230,5 +232,10 @@ class InvoicesController extends Controller
 
     public function printInvoice(Invoice $invoice){
         return view('invoices.print.printInvoice',['invoice'=>$invoice]);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new InvoiceExport, 'invoices.xlsx');
     }
 }
