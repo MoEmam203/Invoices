@@ -105,6 +105,13 @@
                                                         <i class="fas fa-archive"></i>
                                                         نقل الي الارشيف
                                                     </a>
+                                                    <a class="dropdown-item" href="{{ route('show.invoice.status',$invoice) }}">
+                                                        تغيير حالة الفاتورة
+                                                    </a>
+                                                    <a class="dropdown-item" href="{{ route('invoice.print',$invoice) }}">
+                                                        <i class="fas fa-print text-success"></i>
+                                                        طباعة الفاتورة
+                                                    </a>
                                                     {{-- <a class="dropdown-item" href="#">Another action</a>
                                                     <a class="dropdown-item" href="#">Something else here</a> --}}
                                                 </div>

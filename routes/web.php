@@ -58,4 +58,6 @@ Route::post('/archiveInvoice',[InvoicesController::class,'archive'])->name('invo
 
 Route::post('/unArchiveInvoice',[InvoicesController::class,'unArchive'])->name('invoices.unArchive');
 
+Route::get('/printInvoice/{invoice}',[InvoicesController::class,'printInvoice'])->name('invoice.print');
+
 Route::get('/{page}', [AdminController::class,'index']);

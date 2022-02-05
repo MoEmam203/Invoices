@@ -222,4 +222,7 @@ class InvoicesController extends Controller
         return redirect()->route("invoices.index")->withAdd("تم اعادة الفاتورة من الارشيف");
     }
 
+    public function printInvoice(Invoice $invoice){
+        return view('invoices.print.printInvoice',['invoice'=>$invoice]);
+    }
 }
