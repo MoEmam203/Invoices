@@ -16,10 +16,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        User::create([
-            'name' => 'Super Admin',
-            'email' => 'super_admin@admin.com',
-            'password' => Hash::make('super_admin@admin.com')
+        // User::create([
+        //     'name' => 'Super Admin',
+        //     'email' => 'super_admin@admin.com',
+        //     'password' => Hash::make('super_admin@admin.com')
+        // ]);
+
+        $this->call([
+            PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class,
         ]);
+
     }
 }

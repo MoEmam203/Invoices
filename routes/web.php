@@ -5,7 +5,9 @@ use App\Http\Controllers\InvoiceAttachmentController;
 use App\Http\Controllers\InvoicesArchiveController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,5 +63,10 @@ Route::post('/unArchiveInvoice',[InvoicesController::class,'unArchive'])->name('
 Route::get('/printInvoice/{invoice}',[InvoicesController::class,'printInvoice'])->name('invoice.print');
 
 Route::get('/exportInvoices',[InvoicesController::class,'export'])->name('invoices.export');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles',RoleController::class);
+    Route::resource('users',UserController::class);
+});
 
 Route::get('/{page}', [AdminController::class,'index']);
