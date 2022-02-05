@@ -8,8 +8,10 @@ use App\Models\Invoice_attachment;
 use App\Models\Invoice_details;
 use App\Models\Product;
 use App\Models\Section;
+use App\Notifications\invoices\AddInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class InvoicesController extends Controller
@@ -81,6 +83,10 @@ class InvoicesController extends Controller
             // move file 
             $request->attachment->move(public_path('Attachments/Invoices/' . $request->invoice_number), $attachment_name);
         }
+
+        // send Email
+        $user = auth()->user();
+        Notification::send($user, new AddInvoice($invoice->id));
 
         return redirect()->route('invoices.index')->with('add', 'تم اضافة الفاتورة بنجاح');
     }
