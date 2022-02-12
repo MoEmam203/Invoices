@@ -31,11 +31,7 @@
 
 @section('content')
 
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+@include('errors')
 
 <!-- row opened -->
 <div class="row row-sm">
@@ -95,7 +91,7 @@
 
                                         @can('حذف مستخدم')
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-user_id="{{ $user->id }}" data-username="{{ $user->name }}"
+                                                data-user="{{ $user }}"
                                                 data-toggle="modal" href="#modaldemo8" title="حذف"><i
                                                     class="las la-trash"></i></a>
                                         @endcan
@@ -118,12 +114,12 @@
                     <h6 class="modal-title">حذف المستخدم</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="{{ route('users.destroy', 'test') }}" method="post">
-                    {{ method_field('delete') }}
-                    {{ csrf_field() }}
+                <form action="users/destroy" method="post">
+                    @method('DELETE')
+                    @csrf
                     <div class="modal-body">
                         <p>هل انت متاكد من عملية الحذف ؟</p><br>
-                        <input type="hidden" name="user_id" id="user_id" value="">
+                        <input type="hidden" name="id" id="id" value="">
                         <input class="form-control" name="username" id="username" type="text" readonly>
                     </div>
                     <div class="modal-footer">
@@ -165,11 +161,10 @@
 <script>
     $('#modaldemo8').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
-        var user_id = button.data('user_id')
-        var username = button.data('username')
+        var user = button.data('user')
         var modal = $(this)
-        modal.find('.modal-body #user_id').val(user_id);
-        modal.find('.modal-body #username').val(username);
+        modal.find('.modal-body #id').val(user.id);
+        modal.find('.modal-body #username').val(user.name);
     })
 
 </script>

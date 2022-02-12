@@ -16,10 +16,10 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'store']]);
-        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:عرض صلاحية', ['only' => ['index']]);
+        $this->middleware('permission:اضافة صلاحية', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل صلاحية', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:حذف صلاحية', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -57,7 +57,7 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
         return redirect()->route('roles.index')
-            ->with('success', 'Role created successfully');
+            ->with('add', 'Role created successfully');
     }
     /**
      * Display the specified resource.
@@ -106,7 +106,7 @@ class RoleController extends Controller
         $role->save();
         $role->syncPermissions($request->input('permission'));
         return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+            ->with('edit', 'Role updated successfully');
     }
     /**
      * Remove the specified resource from storage.
@@ -118,6 +118,6 @@ class RoleController extends Controller
     {
         DB::table("roles")->where('id', $id)->delete();
         return redirect()->route('roles.index')
-            ->with('success', 'Role deleted successfully');
+            ->with('delete', 'Role deleted successfully');
     }
 }

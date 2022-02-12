@@ -35,8 +35,9 @@
                         <div class="card-header pb-0">
                             <div class="d-flex justify-content-between">
                                 <div class="col-sm-6 col-md-4 col-xl-3">
-                                    <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal"
-                                        href="#modaldemo8">اضافة منتج</a>
+                                    @can('اضافة منتج')
+                                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة منتج</a>
+                                    @endcan
                                 </div>
                             </div>
                         </div>
@@ -61,9 +62,13 @@
                                                 <td>{{ $product->section->section_name }}</td>
                                                 <td>{{ $product->description }}</td>
                                                 <td>
-                                                    <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-product="{{ $product }}" data-toggle="modal" href="#exampleModal2" title="تعديل"><i class="las la-pen"></i></a>
-                                                
-                                                    <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" data-product="{{ $product }}" data-toggle="modal" href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+                                                    @can('تعديل منتج')
+                                                        <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-product="{{ $product }}" data-toggle="modal" href="#exampleModal2" title="تعديل"><i class="las la-pen"></i></a>
+                                                    @endcan
+                                                    
+                                                    @can('حذف منتج')
+                                                        <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" data-product="{{ $product }}" data-toggle="modal" href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @empty

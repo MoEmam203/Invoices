@@ -18,6 +18,20 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class InvoicesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:قائمة الفواتير', ['only' => ['index']]);
+        $this->middleware('permission:اضافة فاتورة', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:حذف الفاتورة', ['only' => ['destroy']]);
+        $this->middleware('permission:تغير حالة الدفع', ['only' => ['updateInvoiceStatus']]);
+        $this->middleware('permission:الفواتير المدفوعة', ['only' => ['paidInvoices']]);
+        $this->middleware('permission:الفواتير الغير مدفوعة', ['only' => ['unPaidInvoices']]);
+        $this->middleware('permission:الفواتير المدفوعة جزئيا', ['only' => ['partialPaidInvoices']]);
+        $this->middleware('permission:ارشيف الفواتير', ['only' => ['archive','unArchive']]);
+        $this->middleware('permission:طباعةالفاتورة', ['only' => ['printInvoice']]);
+        $this->middleware('permission:تصدير EXCEL', ['only' => ['export']]);
+    }
     /**
      * Display a listing of the resource.
      *

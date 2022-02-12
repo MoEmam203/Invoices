@@ -27,19 +27,7 @@
 
     <div class="col-lg-12 col-md-12">
 
-        @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <button aria-label="Close" class="close" data-dismiss="alert" type="button">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>خطا</strong>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+        @include('errors')
 
         <div class="card">
             <div class="card-body">
@@ -87,7 +75,7 @@
                     <div class="row row-sm mg-b-20">
                         <div class="col-lg-6">
                             <label class="form-label">حالة المستخدم</label>
-                            <select name="Status" id="select-beast" class="form-control  nice-select  custom-select">
+                            <select name="status" id="select-beast" class="form-control  nice-select  custom-select">
                                 <option value="مفعل">مفعل</option>
                                 <option value="غير مفعل">غير مفعل</option>
                             </select>
@@ -98,7 +86,7 @@
                         <div class="col-xs-12 col-md-12">
                             <div class="form-group">
                                 <label class="form-label"> صلاحية المستخدم</label>
-                                {!! Form::select('roles_name[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+                                {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
                             </div>
                         </div>
                     </div>

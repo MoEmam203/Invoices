@@ -85,15 +85,19 @@
                                                 <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
                                                     id="dropdownMenuButton" type="button">العمليات<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
-                                                    <a class="dropdown-item text-success" data-target="#modaldemo2" data-invoice="{{ $invoice }}" data-toggle="modal" href="#modaldemo2">
-                                                        <i class="fas fa-undo-alt"></i>
-                                                        اعادة الي قائمة الفواتير
-                                                    </a>
+                                                    @can('ارشفة الفاتورة')
+                                                        <a class="dropdown-item text-success" data-target="#modaldemo2" data-invoice="{{ $invoice }}" data-toggle="modal" href="#modaldemo2">
+                                                            <i class="fas fa-undo-alt"></i>
+                                                            اعادة الي قائمة الفواتير
+                                                        </a>
+                                                    @endcan
 
-                                                    <a class="dropdown-item text-danger" data-target="#modaldemo1" data-invoice="{{ $invoice }}" data-toggle="modal" href="#modaldemo1">
-                                                        <i class="las la-trash"></i>
-                                                        حذف الفاتورة
-                                                    </a>
+                                                    @can('حذف الفاتورة')
+                                                        <a class="dropdown-item text-danger" data-target="#modaldemo1" data-invoice="{{ $invoice }}" data-toggle="modal" href="#modaldemo1">
+                                                            <i class="las la-trash"></i>
+                                                            حذف الفاتورة
+                                                        </a>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </td>

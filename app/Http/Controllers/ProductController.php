@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:المنتجات', ['only' => ['index']]);
+        $this->middleware('permission:اضافة منتج', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل منتج', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:حذف منتج', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
