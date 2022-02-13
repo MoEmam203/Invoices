@@ -11,10 +11,10 @@ class SectionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:الاقسام', ['only' => ['index']]);
-        $this->middleware('permission:اضافة قسم', ['only' => ['create', 'store']]);
-        $this->middleware('permission:تعديل قسم', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:حذف قسم', ['only' => ['destroy']]);
+        $this->middleware('permission:sections', ['only' => ['index']]);
+        $this->middleware('permission:add section', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit section', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:remove section', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

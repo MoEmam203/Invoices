@@ -10,8 +10,8 @@ class InvoicesArchiveController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:ارشيف الفواتير', ['only' => ['index']]);
-        $this->middleware('permission:حذف الفاتورة', ['only' => ['destroy']]);
+        $this->middleware('permission:archive invoice', ['only' => ['index']]);
+        $this->middleware('permission:remove invoice', ['only' => ['destroy']]);
     }
 
     /**

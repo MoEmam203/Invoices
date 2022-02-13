@@ -16,10 +16,10 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:عرض صلاحية', ['only' => ['index']]);
-        $this->middleware('permission:اضافة صلاحية', ['only' => ['create', 'store']]);
-        $this->middleware('permission:تعديل صلاحية', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:حذف صلاحية', ['only' => ['destroy']]);
+        $this->middleware('permission:show permission', ['only' => ['index']]);
+        $this->middleware('permission:add permission', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit permission', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:remove permission', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.

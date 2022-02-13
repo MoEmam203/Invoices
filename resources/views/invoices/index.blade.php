@@ -30,10 +30,10 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="">
-                        @can('اضافة فاتورة')
+                        @can('add invoice')
                             <a href="{{ route('invoices.create') }}" class="btn btn-sm btn-primary">اضافة فاتورة</a>
                         @endcan
-                        @can('تصدير EXCEL')
+                        @can('export invoice as excel')
                             <a href="{{ route('invoices.export') }}" class="btn btn-sm btn-success">
                                 <i class="fas fa-file-excel"></i>
                                 تصدير الفواتير
@@ -98,41 +98,39 @@
                                                 <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary btn-sm" data-toggle="dropdown"
                                                     id="dropdownMenuButton" type="button">العمليات<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
-                                                    @can('تعديل الفاتورة')
+                                                    @can('edit invoice')
                                                         <a class="dropdown-item" href="{{ route('invoices.edit',$invoice) }}">
                                                             <i class="las la-pen"></i>
                                                             تعديل الفاتورة
                                                         </a>
                                                     @endcan
 
-                                                    @can('حذف الفاتورة')
+                                                    @can('remove invoice')
                                                         <a class="dropdown-item text-danger" data-target="#modaldemo1" data-invoice="{{ $invoice }}" data-toggle="modal" href="#modaldemo1">
                                                             <i class="las la-trash"></i>
                                                             حذف الفاتورة
                                                         </a>
                                                     @endcan
 
-                                                    @can('تغير حالة الدفع')
+                                                    @can('change invoice status')
                                                         <a class="dropdown-item" href="{{ route('show.invoice.status',$invoice) }}">
                                                             تغيير حالة الفاتورة
                                                         </a>
                                                     @endcan
 
-                                                    @can('ارشفة الفاتورة')
+                                                    @can('archive invoice')
                                                         <a class="dropdown-item text-warning" data-target="#modaldemo2" data-invoice="{{ $invoice }}" data-toggle="modal" href="#modaldemo2">
                                                             <i class="fas fa-archive"></i>
                                                             نقل الي الارشيف
                                                         </a>
                                                     @endcan
 
-                                                    @can('طباعةالفاتورة')
+                                                    @can('print invoice')
                                                         <a class="dropdown-item" href="{{ route('invoice.print',$invoice) }}">
                                                             <i class="fas fa-print text-success"></i>
                                                             طباعة الفاتورة
                                                         </a>
                                                     @endcan
-                                                    {{-- <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a> --}}
                                                 </div>
                                             </div>
                                         </td>

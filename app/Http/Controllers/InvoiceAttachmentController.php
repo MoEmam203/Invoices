@@ -12,8 +12,8 @@ class InvoiceAttachmentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:اضافة مرفق', ['only' => ['store']]);
-        $this->middleware('permission:حذف مرفق', ['only' => ['destroy']]);
+        $this->middleware('permission:add attachment', ['only' => ['store']]);
+        $this->middleware('permission:remove attachment', ['only' => ['destroy']]);
     }
 
     /**

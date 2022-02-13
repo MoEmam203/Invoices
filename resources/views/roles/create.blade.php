@@ -48,10 +48,8 @@
                                 <ul>
                             </li>
                             @foreach($permission as $value)
-                            <label style="font-size: 16px;">{{ Form::checkbox('permission[]', $value->id, false,
-                                array('class' => 'name')) }}
+                            <label style="font-size: 16px;">{{ Form::checkbox('permission[]', $value->id, false,array('class' => 'name')) }}
                                 {{ $value->name }}</label>
-
                             @endforeach
                             </li>
 

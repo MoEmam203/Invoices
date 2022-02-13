@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\InvoiceReportsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,5 +69,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles',RoleController::class);
     Route::resource('users',UserController::class);
 });
+
+Route::get('InvoiceReports',[InvoiceReportsController::class,'index'])->name('invoiceReports');
+Route::post('searchInvoices',[InvoiceReportsController::class,'search'])->name('InvoiceSearch');
 
 Route::get('/{page}', [AdminController::class,'index']);

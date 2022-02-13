@@ -20,17 +20,17 @@ class InvoicesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:قائمة الفواتير', ['only' => ['index']]);
-        $this->middleware('permission:اضافة فاتورة', ['only' => ['create', 'store']]);
-        $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:حذف الفاتورة', ['only' => ['destroy']]);
-        $this->middleware('permission:تغير حالة الدفع', ['only' => ['updateInvoiceStatus']]);
-        $this->middleware('permission:الفواتير المدفوعة', ['only' => ['paidInvoices']]);
-        $this->middleware('permission:الفواتير الغير مدفوعة', ['only' => ['unPaidInvoices']]);
-        $this->middleware('permission:الفواتير المدفوعة جزئيا', ['only' => ['partialPaidInvoices']]);
-        $this->middleware('permission:ارشيف الفواتير', ['only' => ['archive','unArchive']]);
-        $this->middleware('permission:طباعةالفاتورة', ['only' => ['printInvoice']]);
-        $this->middleware('permission:تصدير EXCEL', ['only' => ['export']]);
+        $this->middleware('permission:invoices', ['only' => ['index']]);
+        $this->middleware('permission:add invoice', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit invoice', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:remove invoice', ['only' => ['destroy']]);
+        $this->middleware('permission:change invoice status', ['only' => ['updateInvoiceStatus']]);
+        $this->middleware('permission:paid invoices', ['only' => ['paidInvoices']]);
+        $this->middleware('permission:unpaid invoices', ['only' => ['unPaidInvoices']]);
+        $this->middleware('permission:partial paid invoices', ['only' => ['partialPaidInvoices']]);
+        $this->middleware('permission:archive invoice', ['only' => ['archive','unArchive']]);
+        $this->middleware('permission:print invoice', ['only' => ['printInvoice']]);
+        $this->middleware('permission:export invoice as excel', ['only' => ['export']]);
     }
     /**
      * Display a listing of the resource.
