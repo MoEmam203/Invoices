@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerReportsController;
 use App\Http\Controllers\InvoiceAttachmentController;
 use App\Http\Controllers\InvoicesArchiveController;
 use App\Http\Controllers\InvoicesController;
@@ -72,5 +73,8 @@ Route::group(['middleware' => ['auth']], function() {
 
 Route::get('InvoiceReports',[InvoiceReportsController::class,'index'])->name('invoiceReports');
 Route::post('searchInvoices',[InvoiceReportsController::class,'search'])->name('InvoiceSearch');
+
+Route::get('customerReports',[CustomerReportsController::class,'index'])->name('customerReports');
+Route::post('searchCustomer',[CustomerReportsController::class,'search'])->name('customerSearch');
 
 Route::get('/{page}', [AdminController::class,'index']);
