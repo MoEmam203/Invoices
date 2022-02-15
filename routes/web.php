@@ -77,4 +77,7 @@ Route::post('searchInvoices',[InvoiceReportsController::class,'search'])->name('
 Route::get('customerReports',[CustomerReportsController::class,'index'])->name('customerReports');
 Route::post('searchCustomer',[CustomerReportsController::class,'search'])->name('customerSearch');
 
+Route::get('markAllAsRead',[InvoicesController::class,'markAllAsRead'])->name('markAllAsRead');
+Route::get('markASRead/{id}',[InvoicesController::class,'markAsRead'])->name('markAsRead');
+
 Route::get('/{page}', [AdminController::class,'index']);

@@ -36,4 +36,11 @@
             	@include('layouts.footer')
 				@include('layouts.footer-scripts')	
 	</body>
+
+	{{-- <script>
+		setInterval(function() {
+			$('#unReadNotificationCount').load(window.location.href + '#unReadNotificationCount')
+			$('#unReadNotification').load(window.location.href + '#unReadNotification')
+		}, 10000);
+	</script> --}}
 </html>

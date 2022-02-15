@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\InvoiceExport;
+use App\Models\User;
+use App\Notifications\invoices\AddInvoiceToDatabase;
 use Maatwebsite\Excel\Facades\Excel;
 
 class InvoicesController extends Controller
@@ -103,6 +105,9 @@ class InvoicesController extends Controller
         // send Email
         $user = auth()->user();
         Notification::send($user, new AddInvoice($invoice->id));
+
+        // Send Notification to owner as database
+        Notification::send(User::role('owner')->get(),new AddInvoiceToDatabase($invoice->id));
 
         return redirect()->route('invoices.index')->with('add', 'تم اضافة الفاتورة بنجاح');
     }
@@ -251,5 +256,21 @@ class InvoicesController extends Controller
     public function export() 
     {
         return Excel::download(new InvoiceExport, 'invoices.xlsx');
+    }
+
+    public function markAllAsRead(){
+        $unReadNotifications = auth()->user()->unreadNotifications;
+
+        if($unReadNotifications){
+            $unReadNotifications->markAsRead();
+        }
+
+        return redirect()->back();
+    }
+
+    public function markAsRead($id){
+        $notification = auth()->user()->Notifications->where('id',$id)->first();
+        $notification->markAsRead();
+        return redirect()->route('invoiceDetails.show',$notification->data['id']);
     }
 }
